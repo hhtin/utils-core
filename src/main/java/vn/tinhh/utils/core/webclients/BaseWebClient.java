@@ -51,15 +51,10 @@ public class BaseWebClient {
                 .uri(uri);
     }
 
-    protected <T, R> Mono<R> put(String uri, T data, R response) {
-        Class<T> tClass = (Class<T>) data.getClass();
-        Class<R> RClass = (Class<R>) response.getClass();
+    protected WebClient.RequestBodySpec put(String uri) {
         WebClient client = getWebClient();
-        return client.post()
-                .uri(uri)
-                .body(Mono.just(data), data.getClass())
-                .retrieve()
-                .bodyToMono(RClass);
+        return client.put()
+                .uri(uri);
     }
 
     protected WebClient.RequestHeadersSpec get(String uri) {
